@@ -4,8 +4,15 @@ const User = require("../models/userModel");
 const sendtoken=require("../utils/jwttoken");
 const sendEmail = require("../utils/sendemail.js");
 const crypto=require("crypto");
+const cloudinary = require("cloudinary");
 
 exports.registerUser= catchAsyncErrors(async(req,res,next)=>{
+
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
+    width: 150,
+    crop: "scale",
+  });
     const { name, email, password } = req.body;
 
     const user = await User.create({
@@ -13,8 +20,8 @@ exports.registerUser= catchAsyncErrors(async(req,res,next)=>{
       email,
       password,
       avatar: {
-        public_id:"This is a sample id",
-        url: "profilepicUrl",
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
       },
     });
     const token=user.getJWTToken();
@@ -67,9 +74,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it`;
 
@@ -152,18 +157,39 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
   sendToken(user, 200, res);
 });
-exports.updateProfile= catchAsyncErrors(async (req, res, next) => {
-  const newUserData={
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+  };
+
+  if (req.body.avatar !== "") {
+    const user = await User.findById(req.user.id);
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
   }
-  const user= await User.findByIdAndUpdate(req.user.id, newUserData,{
-    new:true,
-    runValidators:true,
-    useFindAndModify:true
-  })
+
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
   res.status(200).json({
-    success:true,
+    success: true,
   });
 });
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
