@@ -31,6 +31,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
+// Get All Products
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
   async (dispatch) => {
@@ -57,7 +58,7 @@ export const getProduct =
     }
   };
 
-
+// Get All Products For Admin
 export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
@@ -76,7 +77,7 @@ export const getAdminProduct = () => async (dispatch) => {
   }
 };
 
-
+// Create Product
 export const createProduct = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
@@ -103,7 +104,7 @@ export const createProduct = (productData) => async (dispatch) => {
   }
 };
 
-
+// Update Product
 export const updateProduct = (id, productData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
@@ -130,7 +131,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
   }
 };
 
-
+// Delete Product
 export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
@@ -149,7 +150,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-
+// Get Products Details
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
@@ -168,7 +169,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
-
+// NEW REVIEW
 export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_REVIEW_REQUEST });
@@ -191,7 +192,7 @@ export const newReview = (reviewData) => async (dispatch) => {
   }
 };
 
-
+// Get All Reviews of a Product
 export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
@@ -210,7 +211,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   }
 };
 
-
+// Delete Review of a Product
 export const deleteReviews = (reviewId, productId) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_REVIEW_REQUEST });
@@ -231,7 +232,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
   }
 };
 
-
+// Clearing Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };
