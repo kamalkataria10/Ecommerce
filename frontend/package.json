@@ -19,7 +19,7 @@
     "country-state-city": "^3.0.1",
     "express-fileupload": "^1.4.0",
     "overlay-navbar": "^1.2.3",
-    "react": "^18.2.0",
+    "react": "^17.0.2",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
     "react-bootstrap": "^2.4.0",
