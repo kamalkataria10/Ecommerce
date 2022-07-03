@@ -57,6 +57,9 @@
   "react-alert-template-basic": "^1.0.2",
   
     
+  "react-bootstrap-4-pagination": "^1.0.4",
+  
+    
   "react-chartjs-2": "^3.0.4",
   
     
@@ -73,6 +76,9 @@
   
     
   "react-material-ui-carousel": "^2.3.1",
+  
+    
+  "react-rating-stars-component": "^2.2.0",
   
     
   "react-redux": "^7.2.4",

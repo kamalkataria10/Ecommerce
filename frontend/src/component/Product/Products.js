@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader";
 import { clearErrors, getProduct } from "../../actions/productAction";
 import ProductCard from "../Home/ProductCard";
-import Pagination from 'react-bootstrap/Pagination'
+import Pagination from 'react-bootstrap-4-pagination';
 import Slider from "@material-ui/core/Slider";
 import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
